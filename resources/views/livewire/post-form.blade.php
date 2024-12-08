@@ -39,6 +39,12 @@
                     <label for="featuredImage">Featured Image <span class="text-danger">*</span></label>
                     <input type="file" class="form-control" wire:model="featuredImage" id="featuredImagefeaturedImage" />
 
+                    @if($featuredImage)
+                        <div class="my-2">
+                               <img src="{{ $featuredImage->temporaryUrl() }}"  class="img-fluid" width="200px">
+                        </div>
+                    @endif
+
                     @error('featuredImage')
                       <p class="text-danger">{{ $message }}</p>
                     @enderror
@@ -48,7 +54,7 @@
 
              <div class="card-footer">
                 <div class="form-group mb-2">
-                      <button type="submit" class="btn btn-primary"> Save </button>
+                      <button type="submit" class="btn btn-success"> Save </button>
                 </div>
 
              </div>

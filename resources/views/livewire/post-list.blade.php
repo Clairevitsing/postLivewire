@@ -7,4 +7,16 @@
             <a wire:navigate href="{{ route('posts.create') }}" class="btn btn-primary btn-sm"> Add Post</a>
         </div>
     </div>
+
+    @if (session('success'))
+         <div class="alert alert-success alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              {{ session('success') }}
+         </div>
+    @elseif (session('error'))
+     <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              {{ session('error') }}
+         </div>
+    @endif
 </div>
