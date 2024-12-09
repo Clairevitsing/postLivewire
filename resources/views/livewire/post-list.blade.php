@@ -25,7 +25,7 @@
 
 
     <div class="card shadow">
-        <div class="table-responsive">
+        <div class="card-body mt-4 table-responsive">
             <table class="table table-striped">
                 <thread>
                     <th>#</th>
@@ -36,7 +36,7 @@
                     <th>Actions</th>
                 </thread>
 
-                </tabl>
+
 
                 <tbody>
 
@@ -62,6 +62,9 @@
                     @endforelse
 
                 </tbody>
+            </table>
+
+            {{ $posts->links()}}
         </div>
     </div>
 

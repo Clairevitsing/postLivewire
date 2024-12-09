@@ -34,9 +34,9 @@ class PostForm extends Component
         $imagePath = null;
 
         // dd($this->featuredImage);
-        if ($this->featuredImage){
-            $imageName = time().'-' . $this->featuredImage->extension();
-            $imagePath = $this->featuredImage->storeAs('public/uploads/' . $imageName);
+        if ($this->featuredImage) {
+            $imageName = time() . '-' . $this->featuredImage->extension();
+            $imagePath = $this->featuredImage->storeAs('public/uploads', $imageName);
         }
 
         $post = Post::create([
