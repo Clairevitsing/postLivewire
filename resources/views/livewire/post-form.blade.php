@@ -6,7 +6,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-xl-6">
-                                <h5 class="fw-bold"> Create Post</h5>
+                                <h5 class="fw-bold"> {{ $isView ? 'View' : 'Create'}} Post</h5>
                             </div>
 
                             <div class="col-xl-6 text-end">
@@ -19,7 +19,7 @@
                     <div class="card-body">
                         <div class="form-group mb-2">
                             <label for="title">Title <span class="text-danger">*</span></label>
-                            <input type="text" wire:model="title" class="form-control" id="title" placeholder="Post Title" />
+                            <input type="text" {{ $isView ? 'disabled' : ''}} wire:model="title" class="form-control" id="title" placeholder="Post Title" />
 
                             @error('title')
                             <p class="text-danger">{{ $message }}</p>
@@ -28,16 +28,24 @@
 
                         <div class="form-group mb-2">
                             <label for="content">Content <span class="text-danger">*</span></label>
-                            <textarea class="form-control"  wire:model="content" id="content" placeholder="Post Content"></textarea>
+                            <textarea class="form-control" {{ $isView ? 'disabled' : ''}} wire:model="content" id="content" placeholder="Post Content"></textarea>
 
                             @error('content')
                             <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-                       <!-- Post Featured Image -->
+                        @if ($post)
+                        <div class="my-2 mb-4">
+                            <label>Uploaded Featured Image</label>
+                            <img src="{{ Storage::url($post->featured_image) }}" class="img-fluid" width="250px" />
+
+                        </div>
+                        @endif
+                        <!-- Post Featured Image -->
+                        @if(!$isView)
                         <div class="form-group mb-2">
                             <label for="featuredImage">Featured Image <span class="text-danger">*</span></label>
-                            <input type="file" class="form-control" wire:model="featuredImage" id="featuredImagefeaturedImage" />
+                            <input type="file" class="form-control" {{ $isView ? 'disabled' : ''}} wire:model="featuredImage" id="featuredImagefeaturedImage" />
 
                             @if($featuredImage)
                             <div class="my-2">
@@ -49,15 +57,16 @@
                             <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
+                        @endif
 
                     </div>
-
+                    @if(!$isView)
                     <div class="card-footer">
                         <div class="form-group mb-2">
                             <button type="submit" class="btn btn-success"> Save </button>
                         </div>
-
                     </div>
+                    @endif
                 </div>
             </form>
         </div>
