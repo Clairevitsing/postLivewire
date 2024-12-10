@@ -46,6 +46,21 @@ class PostForm extends Component
 
         $this->validate();
 
+        $rules = [
+            'featuredImage' => $this->post && $this->post->featured_image ? 'nullable|image|mimes:jpg,jpeg,png,svg,bmp,webp,gif|max:2048' :  'required|image|mimes:jpg,jpeg,png,svg,bmp,webp,gif|max:2048'
+        ];
+
+        $messages = [
+            'featuredImage.required' => 'Featured image is required',
+            'featuredImage.image' => 'Featured Image must be a valid image',
+            'featuredImage.mimes' => 'Featured Image accepts only jpg, jpeg, png, svg, bmp, webp and gif',
+            'featuredImage.max' => 'Featured Image must not be a larger than 2MB',
+        ];
+         
+        $this->validate($rules, $messages);
+
+
+
         $imagePath = null;
         // dd($this->featuredImage);
         if ($this->featuredImage) {
