@@ -6,12 +6,14 @@ use Livewire\Component;
 use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 use App\Models\Post;
+use Livewire\Attributes\Title;
 
 class PostForm extends Component
 {
 
     use WithFileUploads;
 
+    #[Title('Livewire 3 CRUD - Manage Posts')]
     public $post=null;
     public $isView = false;
 

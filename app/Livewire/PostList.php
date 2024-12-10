@@ -7,6 +7,7 @@ use App\Models\Post;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\Title;
 
 class PostList extends Component
 {
@@ -16,10 +17,18 @@ class PostList extends Component
     //     $this->posts = Post::all();
 
     // }
+
+    #[Title('Livewire 3 CRUD - Posts Listing')]
+
+    public $searchTerm = null;
+
     public function render()
     {
         // dd($this->posts);
-        $posts = Post::orderBy('id', 'DESC')->paginate(5);
+        $posts = Post::where('title', 'like', '%' . $this->searchTerm . '%')
+            ->orWhere('content', 'like', '%' . $this->searchTerm . '%')
+            ->orderBy('id', 'DESC')->paginate(5);
+
         return view('livewire.post-list', compact('posts'));
     }
 
