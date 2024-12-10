@@ -1,7 +1,7 @@
 <div class="container my-3">
     <div class="row border-bottom py-2">
         <div class="col-xl-11">
-            <h4 class="text-center fw-bold"> SPA - CRUD App Using Livewire and Laravel11</h4>
+            <h4 class="text-center fw-bold"> Posts - CRUD App Using Livewire and Laravel 11</h4>
         </div>
         <div class="col-xl-1">
             <a wire:navigate href="{{ route('posts.create') }}" class="btn btn-primary btn-sm"> Add Post</a>
@@ -31,14 +31,14 @@
             <input type="text" wire:model.live.debounce.2000ms="searchTerm" class="class-control" placeholder="Search Post..." />
         </div>
         <table class="table table-striped">
-            <thread>
+            <thead>
                 <th>#</th>
                 <th>Featured Image</th>
                 <th>Title</th>
                 <th>Content</th>
                 <th>Date</th>
                 <th>Actions</th>
-            </thread>
+            </thead>
 
 
 
@@ -50,7 +50,7 @@
 
                     <td> <a wire:navigate href="{{ route('posts.view',$post->id)}}"><img src="{{ Storage::url($post->featured_image) }}" class="img-fluid" width="150px"></a></td>
 
-                    <td><a class="text-decoration-none" wire:navigate href="{{ route('posts.view',$post->id)}}"><img src="{{ Storage::url($post->featured_image) }}" class="img-fluid" width="150px">{{ $post->title }}</a></td>
+                    <td><a class="text-decoration-none" wire:navigate href="{{ route('posts.view',$post->id)}}">{{ $post->title }}</a></td>
                     <td>{{ $post->content }}</td>
                     <td>
                         <p><small><strong>Posted: </strong>{{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</small></p>
