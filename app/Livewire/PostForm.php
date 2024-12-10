@@ -42,27 +42,48 @@ class PostForm extends Component
 
     public function savePost(){
         // dd($this->title);
+        //  dd($this->post);
+
         $this->validate();
 
         $imagePath = null;
-
         // dd($this->featuredImage);
         if ($this->featuredImage) {
-            $imageName = time() . '-' . $this->featuredImage->extension();
+            $imageName = time().'.'.$this->featuredImage->extension();
             $imagePath = $this->featuredImage->storeAs('public/uploads', $imageName);
         }
 
-        $post = Post::create([
-            'title' => $this->title,
-            'content' => $this->content,
-            'featured_image' => $imagePath,
-        ]);
 
-        if($post){
-            session()->flash('success', 'Post has been published successfully!');
-        }
-        else {
-            session()->flash('error', 'Unable to create post! Please try again');
+         if($this->post){
+            $this->post->title = $this->title;
+            $this->post->content = $this->content;
+
+            if($imagePath){
+                $this->post->featured_image = $imagePath;
+            }
+
+            #Update Functionality
+            $updatePost = $this->post->save();
+
+            if($updatePost){
+                session()->flash('success','Post have been saved successfully!');
+            } else {
+                session()->flash('error','Unable to save post. Please try again!');
+            }
+        } else {
+
+            $post = Post::create([
+                'title' => $this->title,
+                'content' => $this->content,
+                'featured_image' => $imagePath,
+            ]);
+
+            if ($post) {
+                session()->flash('success', 'Post has been published successfully!');
+            } else {
+                session()->flash('error', 'Unable to create post! Please try again');
+            }
+
         }
 
         return $this->redirect('/posts',navigate: true);

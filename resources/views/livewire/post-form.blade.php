@@ -6,7 +6,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-xl-6">
-                                <h5 class="fw-bold"> {{ $isView ? 'View' : 'Create'}} Post</h5>
+                                <h5 class="fw-bold"> {{ $isView ? 'View' :($post ? 'Edit' : 'Create')}} Post</h5>
                             </div>
 
                             <div class="col-xl-6 text-end">
@@ -63,7 +63,7 @@
                     @if(!$isView)
                     <div class="card-footer">
                         <div class="form-group mb-2">
-                            <button type="submit" class="btn btn-success"> Save </button>
+                            <button type="submit" class="btn btn-success">{{ $post ? 'Update' : 'Save'}} </button>
                         </div>
                     </div>
                     @endif
