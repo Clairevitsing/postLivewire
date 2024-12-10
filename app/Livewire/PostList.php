@@ -21,14 +21,20 @@ class PostList extends Component
     #[Title('Livewire 3 CRUD - Posts Listing')]
 
     public $searchTerm = null;
+    public $activePageNumber = 1;
+
+    public function fetchPosts(){
+        return Post::where('title', 'like', '%' . $this->searchTerm . '%')
+            ->orWhere('content', 'like', '%' . $this->searchTerm . '%')
+            ->orderBy('id', 'DESC')->paginate(5);
+    }
+
 
     public function render()
     {
         // dd($this->posts);
-        $posts = Post::where('title', 'like', '%' . $this->searchTerm . '%')
-            ->orWhere('content', 'like', '%' . $this->searchTerm . '%')
-            ->orderBy('id', 'DESC')->paginate(5);
-
+        $posts=$this->fetchPosts();
+       
         return view('livewire.post-list', compact('posts'));
     }
 
@@ -52,6 +58,22 @@ class PostList extends Component
             session()->flash('error', 'Unable to delete post. Please try again!');
         }
 
-        return $this->redirect('/posts', navigate:true);
+        $posts = $this->fetchPosts();
+
+        if ($posts->isEmpty() && $this->activePageNumber > 1) {
+            //Redirect to the active page after the post was deleted
+            $this->gotoPage($this->activePageNumber - 1);
+            // return $this->redirect('/posts', navigate:true);
+        }
+        //Redirect to the active page after the post was deleted
+        $this->gotoPage($this->activePageNumber);
+        // return $this->redirect('/posts', navigate:true);
     }
+
+    //Track the active page from pagination
+    public function updatingPage($pageNumber){
+        $this->activePageNumber = $pageNumber;
+    }
+
+
 }
