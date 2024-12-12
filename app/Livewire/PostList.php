@@ -23,10 +23,23 @@ class PostList extends Component
     public $searchTerm = null;
     public $activePageNumber = 1;
 
+    public $sortColumn = 'id';
+    public $sortOrder ='asc';
+
+    public function sortBy($columnName){
+        // dd($columnName);
+        if($this->sortColumn === $columnName){
+            $this->sortOrder = $this->sortOrder === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortColumn = $columnName;
+            $this->sortOrder = 'asc';
+        }
+    }
+
     public function fetchPosts(){
         return Post::where('title', 'like', '%' . $this->searchTerm . '%')
             ->orWhere('content', 'like', '%' . $this->searchTerm . '%')
-            ->orderBy('id', 'DESC')->paginate(5);
+            ->orderBy($this->sortColumn, $this->sortOrder)->paginate(5);
     }
 
 

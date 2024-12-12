@@ -33,10 +33,46 @@
             <table class="table table-striped">
                 <thead>
                     <th>#</th>
-                    <th>Featured Image</th>
-                    <th>Title</th>
-                    <th>Content</th>
-                    <th>Date</th>
+                    <th>Featured Image
+                        <span wire:click="sortBy('featured_image')">
+                            @if($sortColumn === 'featured_image')
+                            @if($sortOrder === 'asc')
+                            <i class="fa-solid fa-sort-up"></i>
+                            @else
+                            <i class="fa-solid fa-sort-down"></i>
+                            @endif
+                            @else
+                            <i class="fa-solid fa-sort"></i>
+                            @endif
+                        </span>
+                    </th>
+                    <th>Title<span wire:click="sortBy('title')"> @if($sortColumn === 'featured_image')
+                            @if($sortOrder === 'asc')
+                            <i class="fa-solid fa-sort-up"></i>
+                            @else
+                            <i class="fa-solid fa-sort-down"></i>
+                            @endif
+                            @else
+                            <i class="fa-solid fa-sort"></i>
+                            @endif</span></th>
+                    <th>Content<span wire:click="sortBy('content')"> @if($sortColumn === 'featured_image')
+                            @if($sortOrder === 'asc')
+                            <i class="fa-solid fa-sort-up"></i>
+                            @else
+                            <i class="fa-solid fa-sort-down"></i>
+                            @endif
+                            @else
+                            <i class="fa-solid fa-sort"></i>
+                            @endif</span></th>
+                    <th>Date<span wire:click="sortBy('created_at')"> @if($sortColumn === 'featured_image')
+                            @if($sortOrder === 'asc')
+                            <i class="fa-solid fa-sort-up"></i>
+                            @else
+                            <i class="fa-solid fa-sort-down"></i>
+                            @endif
+                            @else
+                            <i class="fa-solid fa-sort"></i>
+                            @endif</span></th>
                     <th>Actions</th>
                 </thead>
 
