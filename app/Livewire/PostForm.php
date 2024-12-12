@@ -67,7 +67,9 @@ class PostForm extends Component
         // dd($this->featuredImage);
         if ($this->featuredImage) {
             $imageName = time().'.'.$this->featuredImage->extension();
-            $imagePath = $this->featuredImage->storeAs('public/uploads', $imageName);
+            $imagePath = $this->featuredImage->storeAs('uploads', $imageName, 'public');
+
+            //dd($imagePath);
         }
 
 
